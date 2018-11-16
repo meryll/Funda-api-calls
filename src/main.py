@@ -1,8 +1,9 @@
 from src import core
 from tabulate import tabulate
 
+
 def print_table(agents):
-    header = ['real estate agent','occurrences']
+    header = ['real estate agent', 'occurrences']
     print(tabulate(agents, headers=header, tablefmt='orgtbl'))
 
 
@@ -12,6 +13,7 @@ def get_with_garden(how_many):
 
 def get_all(how_many):
     return core.get(if_garden=False, how_many=how_many)
+
 
 # todo it's always a good idea to add some more unit tests
 # add flask api
