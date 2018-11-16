@@ -9,6 +9,10 @@ def _delay():
     time.sleep(DELAY_TIME_S)
 
 
+def _should_delay(request_number):
+    return request_number % MAX_NUMBER_OF_CALLS == 0
+
+
 def _get_objects(page_number, if_garden):
     xml_response = api_call.get(page_number=page_number, if_garden=if_garden)
     return parser.get(to_parse=xml_response)
@@ -37,7 +41,8 @@ def get(if_garden, how_many):
     '''
     Getting the array of top <how many> real estate agents.
     1. Getting all object for 1st page.
-    2. Getting objects for the rest of the pages unit we download all of the objects.
+    2. Getting objects for the rest of the pages until we download all of the objects.
+    3. Converting list of real estate agents to sorted list of occurrences.
     '''
 
     init_number_of_objects, all_agents = _get_objects(page_number=0, if_garden=if_garden)
@@ -67,7 +72,7 @@ def get(if_garden, how_many):
         # Another (maybe even cleaner) way to do this it to check status code received from rest api
         # and if it's exception "Max number of requests reached" and add delay there.
         # but funda's rest api return 401 which can mean anything.
-        if page_number % MAX_NUMBER_OF_CALLS == 0:
+        if _should_delay(request_number=page_number):
             _delay()
 
     # since we have list of real estate agents for now we have to group them, count how many times each of them occurre.
