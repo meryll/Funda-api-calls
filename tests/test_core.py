@@ -18,7 +18,7 @@ class TestCore(unittest.TestCase):
 
     def test_sort_based_on_occurrence(self):
         expected =[['B', 3], ['A', 2], ['C', 1]]
-        
+
         actual = core._sort_based_on_occurrence(self.occr)
         self.assertEqual(expected, actual)
 

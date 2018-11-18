@@ -22,7 +22,6 @@ def get(to_parse):
 
     real_estate_agents = []
     for object in objects:
-        agent_id = object.find('{}{}'.format(ROOT, REAL_ESTATE_AGENT_ID)).text
         agent_name = object.find('{}{}'.format(ROOT, REAL_ESTATE_AGENT)).text
         real_estate_agents.append(agent_name)
 
